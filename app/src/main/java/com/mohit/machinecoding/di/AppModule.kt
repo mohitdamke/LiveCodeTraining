@@ -26,25 +26,16 @@ object AppModule {
     @Provides
     @Singleton
     fun provideWeatherApi(retrofit: Retrofit): WeatherApi{
-
         return retrofit.create(WeatherApi::class.java)
-
     }
 
     @Provides
     @Singleton
     fun provideRepository(api : WeatherApi): WeatherRepository{
-
         return WeatherRepository(api)
-
     }
 
-
-
-
-
-
-
-
-
 }
+
+// Implementing DI layer help what is alternative method
+// What is the real meaning of the @annotation

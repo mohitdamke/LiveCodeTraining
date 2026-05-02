@@ -7,7 +7,7 @@ class WeatherRepository(private val api : WeatherApi) {
 
     suspend fun getWeather(city: String): WeatherResponse{
 
-        return api.getWeather(city)
+        return api.getWeather(city = city)
 
     }
 

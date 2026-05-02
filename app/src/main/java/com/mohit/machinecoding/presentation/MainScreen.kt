@@ -37,11 +37,13 @@ fun MainScreen(
 
     var city by rememberSaveable { mutableStateOf("") }
 
-    Column(modifier = modifier
-        .fillMaxSize()
-        .padding(10.dp)) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(10.dp)
+    ) {
 
-        Spacer(modifier= Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         OutlinedTextField(
             value = city,
@@ -52,40 +54,38 @@ fun MainScreen(
                 .padding(4.dp)
         )
 
-        Button(onClick = {
-            if (city.isNotEmpty()){
-                weatherViewmodel.getWeather(city)
-            }
+        Button(
+            onClick = {
+                if (city.isNotEmpty()) {
+                    weatherViewmodel.getWeather(city)
+                }
 
-        },modifier = Modifier
-            .fillMaxWidth()
-            .padding(5.dp)) {
+            }, modifier = Modifier
+                .fillMaxWidth()
+                .padding(5.dp)
+        ) {
             Text(text = "Submit")
         }
 
-        Spacer(modifier= Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
-        when (val result = state.value){
+        when (val result = state.value) {
             is WeatherUiState.Loading -> {
                 CircularProgressIndicator()
             }
+
             is WeatherUiState.Success -> {
                 WeatherContent(result.data)
             }
+
             is WeatherUiState.Error -> {
                 Text(text = "Error ${result.message}")
             }
+
             else -> {
                 Text(text = "No Search Result")
             }
         }
-
-
-
-
-
-
-
 
 
     }
@@ -95,28 +95,21 @@ fun MainScreen(
 
 @SuppressLint("NewApi")
 @Composable
-fun WeatherContent(data : WeatherResponse) {
+fun WeatherContent(data: WeatherResponse) {
 
     val result = data.firstOrNull()
 
-    if(result == null){
+    if (result == null) {
         Text(text = "No Data")
         return
     }
-val weather = result.weather.firstOrNull()
+    val weather = result.weather.firstOrNull()
 
     val rain = result.rain
     Text(text = result.city_name)
     Text(text = weather?.main ?: "Main N/A")
     Text(text = rain.`3h`.toString() ?: "00")
 }
-
-
-
-
-
-
-
 
 
 // Why impl viewmodel in constructor vs in file

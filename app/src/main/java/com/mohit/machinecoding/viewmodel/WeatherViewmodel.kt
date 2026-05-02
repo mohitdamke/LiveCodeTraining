@@ -32,5 +32,6 @@ class WeatherViewmodel @Inject constructor(
     }
 }
 
+// Why val state uses loading not else like success and error
 // Why Inject
 // Why state flow not shared flow hot/cold
